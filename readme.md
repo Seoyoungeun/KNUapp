@@ -3,6 +3,7 @@
 경북대학교 **체육진흥센터 이용을 돕는 Android 앱(팀 프로젝트)** 입니다.  
 센터/강좌/시설 정보를 확인하고, **강좌 신청** 및 **시설물 이용 신청**, **신청 내역 조회** 기능을 제공합니다.
 
+https://github.com/KNUMobileTeamProject/KNUSportsCenter
 ---
 
 ## 주요 기능
