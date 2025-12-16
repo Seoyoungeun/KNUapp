@@ -1,1 +1,140 @@
-https://github.com/KNUMobileTeamProject
+코드: https://github.com/KNUMobileTeamProject
+
+# KNU Sports Center (KNU 체육진흥센터) 
+
+경북대학교 **체육진흥센터 이용을 돕는 Android 앱(팀 프로젝트)** 입니다.  
+센터/강좌/시설 정보를 확인하고, **강좌 신청** 및 **시설물 이용 신청**, **신청 내역 조회** 기능을 제공합니다.
+
+---
+
+## 주요 기능
+
+### 1) 센터/강좌/시설 안내
+- 강좌 안내(종목별 상세 정보)
+- 시설 안내(시설별 상세 정보)
+
+### 2) 강좌 신청
+- 종목/강좌/세부반 선택 → 신청 개월/정보 입력 → 신청 처리 흐름을 제공합니다.
+
+### 3) 시설물 이용 신청
+- 시설 선택 → 날짜/시간 선택 → 신청자 정보(소속/인원/계획 등) 입력 → 예약(신청) 처리 흐름을 제공합니다.
+- 앱에서는 **Material Date Picker**로 날짜를 선택합니다(과거 날짜 선택 제한).
+
+### 4) 신청 내역 확인
+- 강좌 신청 내역 조회
+- 시설물 이용 신청 내역 조회
+
+### 5) 지도(오시는 길)
+- Google Maps SDK 기반 지도 화면 제공(센터 위치 확인)
+
+### 6) 공지/게시판(외부 링크)
+- 학교/센터 웹페이지 게시판을 **브라우저로 연결**합니다.
+
+---
+
+## 기술 스택
+
+- **Android / Kotlin**
+- **Firebase**
+  - Authentication (회원가입/로그인)
+  - Realtime Database (신청 데이터 저장)
+- **Google Maps / Location**
+- Material Components, RecyclerView
+- ViewBinding / DataBinding
+
+---
+
+## 프로젝트 구조(요약)
+
+```
+app/src/main/java/com/example/knu_sports_1
+├─ auth/                 # Intro / Login / Join (Firebase Auth)
+├─ MainActivity           # 홈(메뉴 진입)
+├─ Button1                # 강좌안내
+├─ Button2                # 강좌신청 진입
+├─ CourseApplication      # 강좌신청 폼/처리
+├─ Button4                # 시설안내
+├─ Button5                # 시설물사용신청(시설 선택)
+├─ FacilityApply          # 시설 이용신청 폼/처리
+├─ ShowCoursesActivity    # 등록강좌(신청내역)
+├─ ShowFacilitiesActivity # 신청시설(신청내역)
+└─ MapActivity            # 지도
+```
+
+---
+
+## 실행 방법 (Android Studio)
+
+### 1) 준비물
+- Android Studio
+- Android SDK (minSdk 21 / targetSdk 32)
+- JDK 8 이상(프로젝트 컴파일 옵션 1.8)
+
+### 2) 프로젝트 열기
+1. 저장소를 클론/다운로드
+2. Android Studio에서 **프로젝트 루트(gradle 파일 있는 폴더)** 를 Open
+3. Gradle Sync 완료 후 실행(에뮬레이터/실기기)
+
+---
+
+## 설정(중요)
+
+### A. Google Maps API Key 설정
+`AndroidManifest.xml`에서 `${MAPS_API_KEY}` 플레이스홀더를 사용합니다.
+
+- 루트에 `local.properties` 파일을 열고 아래 항목을 추가하세요.  
+  (이미 `sdk.dir=...` 이 있다면 **줄만 추가**하면 됩니다.)
+
+```properties
+MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
+```
+
+> `local.properties`는 `.gitignore` 처리되어 있어 키가 커밋되지 않도록 되어 있습니다.
+
+---
+
+### B. Firebase 설정(Realtime Database / Auth)
+- `app/google-services.json`이 포함되어 있습니다.
+- 코드 내부에서 Realtime Database URL을 직접 사용합니다.  
+  다른 Firebase 프로젝트로 바꾸려면 아래 항목을 본인 프로젝트 값으로 변경하세요.
+
+예) (코드에서 사용되는 형태)
+```kotlin
+Firebase.database("https://<YOUR-PROJECT>.asia-southeast1.firebasedatabase.app")
+```
+
+---
+
+## Firebase 데이터 구조(예시)
+
+앱 로직에서 사용하는 형태를 기준으로 한 **예시**입니다.
+
+- `usrs/{uid}/applied_courses` : 사용자가 신청한 강좌 serial id 리스트  
+- `usrs/{uid}/applied_facilities` : 사용자가 신청한 시설 serial-date 리스트  
+- `courses/{serialId}` : 강좌 정보(예: CourseDetail, StudentCount 등)  
+- `facilities` : 시설 이름 리스트(인덱스로 접근)
+
+---
+
+## 개선 아이디어(로드맵)
+
+- 시설 예약 가능/불가를 캘린더에 시각적으로 표시(녹색/빨간색)
+- 시간대 중복 예약 방지 로직 강화
+- 결제 프로세스(실결제/PG 연동) 또는 결제 Mock 화면 분리
+- 앱 내부 커뮤니티(게시판) 기능 구현
+
+---
+
+## 팀
+
+- 서영은
+- 송주현
+- 석유리
+- 이창석
+
+---
+
+## 라이선스
+
+- 학습/프로젝트 목적의 예제 코드입니다.  
+- 배포/상용 사용 시 라이선스 및 API Key/Firebase 설정을 반드시 점검하세요.
